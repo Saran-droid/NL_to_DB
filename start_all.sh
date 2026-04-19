@@ -5,9 +5,13 @@ echo "Starting Natural Language to SQL System"
 echo "========================================"
 echo ""
 
+# Get script directory
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$SCRIPT_DIR"
+
 # Start backend in background
 echo "Starting Backend Server..."
-uv run start_backend.py &
+python scripts/start_backend.py &
 BACKEND_PID=$!
 
 # Wait a bit for backend to start
@@ -15,7 +19,7 @@ sleep 3
 
 # Start frontend in background
 echo "Starting Frontend..."
-uv run start_frontend.py &
+python scripts/start_frontend.py &
 FRONTEND_PID=$!
 
 echo ""

@@ -16,25 +16,28 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual Environment
 .venv/
 venv/
 ENV/
 env/
+.virtualenv/
 
 # Environment variables
 .env
+.env.local
 
 # Database
 *.db
 *.sqlite
 *.sqlite3
-
-# PostgreSQL
 *.pgsql
 *.dump
 
@@ -44,7 +47,21 @@ env/
 *.swp
 *.swo
 *~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Logs
+*.log
+logs/
 
 # OS
-.DS_Store
 Thumbs.db
+.DS_Store
+
+# Project specific
+uv.lock

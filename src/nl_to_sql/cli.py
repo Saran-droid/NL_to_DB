@@ -1,6 +1,6 @@
 """Main application for natural language to SQL query system."""
-from nl_to_sql import NLToSQL
-from database import Database
+from .converter import NLToSQL
+from .database import Database
 import json
 
 

@@ -3,14 +3,9 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
-import sys
-import os
 
-# Add parent directory to path to import modules
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from nl_to_sql import NLToSQL
-from database import Database
+from .converter import NLToSQL
+from .database import Database
 
 
 # Pydantic models

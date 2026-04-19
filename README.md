@@ -1,4 +1,4 @@
-# Natural Language to SQL Query System
+# Natural Language to SQL
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.136+-green.svg)](https://fastapi.tiangolo.com/)
@@ -6,117 +6,115 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-12+-blue.svg)](https://www.postgresql.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A Python application that converts natural language questions into SQL queries using Groq's llama-3.3-70b-versatile model and PostgreSQL.
+> Transform natural language questions into SQL queries using AI, then execute them against your PostgreSQL database.
 
-## 🌟 Features
+## ✨ Features
 
-- 🤖 Natural language to SQL conversion using Groq AI
-- 🌐 **Web Interface** with Streamlit frontend
-- 🚀 **REST API** with FastAPI backend
-- 📊 Automatic database schema detection
-- 🔍 Query execution and result display
-- 💡 Query explanations
-- 📥 Export results (CSV, JSON)
-- 🐘 PostgreSQL database with sample data
-- 🔒 Safe query generation (SELECT only)
+- 🤖 **AI-Powered** - Uses Groq's llama-3.3-70b-versatile model
+- 🌐 **Web Interface** - Beautiful Streamlit UI for easy interaction
+- 🚀 **REST API** - FastAPI backend for integration with other applications
+- 💻 **CLI Tool** - Command-line interface for terminal users
+- 📊 **Data Export** - Download results as CSV or JSON
+- 🔒 **Safe** - Only generates SELECT queries (no data modification)
+- 📚 **Examples** - Pre-built question library to get started
+- 🔍 **Schema Aware** - Automatically understands your database structure
 
-## 🎯 Two Ways to Use
+## 🎯 Quick Start
 
-### 1. Web Application (Recommended)
+### Prerequisites
 
-Beautiful web interface with:
-- Interactive query builder
-- Real-time results
-- Example questions
-- Query history
-- Download results
+- Python 3.8+
+- PostgreSQL 12+
+- Groq API key ([Get one free](https://console.groq.com/))
 
-**Start the web app:**
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Saran-droid/NL_to_DB.git
+cd NL_to_DB
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+# Edit .env with your credentials
+```
+
+### Running the Application
+
+**Option 1: Web Application (Recommended)**
+
 ```bash
 # Windows
 start_all.bat
 
 # Linux/Mac
+chmod +x start_all.sh
 ./start_all.sh
 ```
 
 Then open http://localhost:8501 in your browser.
 
-### 2. Command Line Interface
-
-Traditional CLI for terminal users:
-```bash
-uv run main.py
-```
-
-## Prerequisites
-
-- Python 3.8+ (managed by uv)
-- PostgreSQL 12+ (local, Docker, or cloud)
-- Groq API key (free at https://console.groq.com/)
-
-### Quick PostgreSQL Setup
-
-**Option 1: Docker (Fastest)**
-```bash
-docker run --name postgres-nlsql -e POSTGRES_PASSWORD=password -e POSTGRES_DB=nl_to_sql_db -p 5432:5432 -d postgres:15
-```
-
-**Option 2: Cloud (Easiest)**
-- [Neon](https://neon.tech/) - Serverless PostgreSQL (free tier)
-- [Supabase](https://supabase.com/) - PostgreSQL + APIs (free tier)
-- [ElephantSQL](https://elephantsql.com/) - Managed PostgreSQL (free tier)
-
-**Option 3: Local**
-- Download from https://www.postgresql.org/download/
-- Create database: `CREATE DATABASE nl_to_sql_db;`
-
-## Setup
-
-### 1. Install uv (if not already installed)
+**Option 2: Using the run script**
 
 ```bash
-# Windows (PowerShell)
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-
-# Or using pip
-pip install uv
+python run.py all        # Start both backend and frontend
+python run.py backend    # Start only the API server
+python run.py frontend   # Start only the web UI
+python run.py cli        # Run command-line interface
 ```
 
-### 2. Set up PostgreSQL
-
-**Quick options:**
-- **Docker:** `docker run --name postgres-nlsql -e POSTGRES_PASSWORD=password -e POSTGRES_DB=nl_to_sql_db -p 5432:5432 -d postgres:15`
-- **Cloud:** Use [Neon](https://neon.tech/), [Supabase](https://supabase.com/), or [ElephantSQL](https://elephantsql.com/) free tier
-- **Local:** Install from https://www.postgresql.org/download/ and create database
-
-Create the database:
-```sql
-CREATE DATABASE nl_to_sql_db;
-```
-
-### 3. Install dependencies
+**Option 3: Command Line Interface**
 
 ```bash
-cd nl-to-sql
-uv venv
-.venv\Scripts\activate  # On Windows
-uv pip install -r requirements.txt
+python -m nl_to_sql
 ```
 
-### 4. Configure environment variables
+## 📖 Documentation
 
-Create a `.env` file from the example:
+- **[Quick Start Guide](docs/QUICK_START.md)** - Get up and running in 5 minutes
+- **[Web App Guide](docs/WEB_APP_GUIDE.md)** - Complete guide for the web application
+- **[API Documentation](http://localhost:8000/docs)** - Interactive API docs (when backend is running)
 
-```bash
-copy .env.example .env
+## 🏗️ Project Structure
+
+```
+nl-to-sql/
+├── src/
+│   └── nl_to_sql/          # Main package
+│       ├── __init__.py     # Package initialization
+│       ├── api.py          # FastAPI backend
+│       ├── cli.py          # Command-line interface
+│       ├── converter.py    # NL to SQL conversion logic
+│       ├── database.py     # Database connection & queries
+│       └── frontend.py     # Streamlit web interface
+├── scripts/                # Utility scripts
+│   ├── start_backend.py    # Start API server
+│   └── start_frontend.py   # Start web UI
+├── tests/                  # Test files
+│   └── test_connection.py  # Database connection tests
+├── docs/                   # Documentation
+│   ├── QUICK_START.md
+│   └── WEB_APP_GUIDE.md
+├── schema.sql              # Database schema
+├── requirements.txt        # Python dependencies
+├── setup.py               # Package setup
+├── run.py                 # Main entry point
+├── .env.example           # Environment template
+└── README.md              # This file
 ```
 
-Edit `.env` with your credentials:
+## 🔧 Configuration
+
+Create a `.env` file with your credentials:
 
 ```env
-GROQ_API_KEY=your_actual_groq_api_key_here
+# Groq API Configuration
+GROQ_API_KEY=your_groq_api_key_here
 
+# PostgreSQL Configuration
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 POSTGRES_DB=nl_to_sql_db
@@ -124,203 +122,125 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=your_password_here
 ```
 
-Get your Groq API key from: https://console.groq.com/keys
+### PostgreSQL Setup
 
-### 5. Start the application
-
-**Option A: Web Application (Recommended)**
-
+**Docker (Fastest)**
 ```bash
-# Windows
-start_all.bat
-
-# Linux/Mac  
-chmod +x start_all.sh
-./start_all.sh
+docker run --name postgres-nlsql \
+  -e POSTGRES_PASSWORD=password \
+  -e POSTGRES_DB=nl_to_sql_db \
+  -p 5432:5432 \
+  -d postgres:15
 ```
 
-Then open http://localhost:8501 in your browser.
+**Cloud (Easiest)**
+- [Neon](https://neon.tech/) - Serverless PostgreSQL
+- [Supabase](https://supabase.com/) - PostgreSQL + APIs
+- [ElephantSQL](https://elephantsql.com/) - Managed PostgreSQL
 
-**Option B: Command Line Interface**
+## 💡 Usage Examples
 
-```bash
-uv run main.py
-```
+### Web Interface
 
-The database will be automatically initialized with sample data on first run.
+1. Start the application: `python run.py all`
+2. Open http://localhost:8501
+3. Type your question: "Show me all users older than 30"
+4. View the generated SQL and results
+5. Download results as CSV or JSON
 
-## 📖 Documentation
-
-- **[QUICK_START_WEB.md](QUICK_START_WEB.md)** - Get the web app running in 5 minutes
-- **[WEB_APP_GUIDE.md](WEB_APP_GUIDE.md)** - Complete guide for the web application and API
-
-## Troubleshooting
-
-### "GROQ_API_KEY not found"
-Create a `.env` file with your API key from https://console.groq.com/
-
-### "API Offline" in web interface
-Start the backend: `uv run start_backend.py`
-
-### Database connection errors
-1. Check PostgreSQL is running
-2. Verify credentials in `.env`
-3. Test connection: `uv run test_postgres.py`
-4. Create database: `psql -U postgres -c "CREATE DATABASE nl_to_sql_db;"`
-
-### "Module not found"
-Install dependencies: `uv pip install -r requirements.txt`
-
-## Usage
-
-### Web Application
-
-1. **Start the servers:**
-   ```bash
-   start_all.bat  # Windows
-   ./start_all.sh # Linux/Mac
-   ```
-
-2. **Open your browser:**
-   - Frontend: http://localhost:8501
-   - API Docs: http://localhost:8000/docs
-
-3. **Ask questions:**
-   - Type your question in natural language
-   - Click example questions from the sidebar
-   - View results, SQL queries, and explanations
-   - Download results as CSV or JSON
-
-### Command Line Interface
-
-```bash
-uv run main.py
-```
-
-### API Usage
+### REST API
 
 ```python
 import requests
 
 response = requests.post(
     "http://localhost:8000/query",
-    json={"question": "Show me all users", "explain": True}
+    json={
+        "question": "Show me all users older than 30",
+        "explain": True
+    }
 )
 
 result = response.json()
-print(result["sql_query"])
-print(result["results"])
+print(f"SQL: {result['sql_query']}")
+print(f"Results: {result['results']}")
 ```
 
-### Example queries
+### Command Line
 
-Try asking questions like:
+```bash
+python -m nl_to_sql
 
-- "Show me all users"
-- "What are the total sales for each user?"
-- "Find all products in the Electronics category"
-- "Show me orders with quantity greater than 5"
-- "List users older than 30"
-- "What is the average price of products?"
+Your question: Show me all users older than 30
+```
 
-### Using as a library
+### As a Python Package
 
 ```python
-from nl_to_sql import NLToSQL
-from database import Database
+from nl_to_sql import NLToSQL, Database
 
 # Initialize
 db = Database()
 db.connect()
-schema = db.get_schema()
 
-# Create converter
 converter = NLToSQL()
-converter.set_schema(schema)
+converter.set_schema(db.get_schema())
 
-# Generate SQL
-query = converter.generate_sql("Show me all users")
-print(query)
-
-# Execute
-results = db.execute_query(query)
-print(results)
+# Generate and execute
+sql = converter.generate_sql("Show me all users")
+results = db.execute_query(sql)
 ```
 
-## Project Structure
+## 🧪 Testing
 
-```
-nl-to-sql/
-├── backend/
-│   └── api.py               # FastAPI REST API server
-├── frontend/
-│   └── app.py               # Streamlit web interface
-├── .env.example             # Environment variables template
-├── .env                     # Your API keys (create this)
-├── requirements.txt         # Python dependencies
-├── schema.sql              # PostgreSQL schema and sample data
-├── nl_to_sql.py            # NL to SQL converter class
-├── database.py             # PostgreSQL connection and utilities
-├── main.py                 # CLI application
-├── test_postgres.py        # PostgreSQL connection test
-├── start_all.bat           # Windows: Start both servers
-├── start_all.sh            # Linux/Mac: Start both servers
-├── start_backend.py        # Start FastAPI backend
-├── start_frontend.py       # Start Streamlit frontend
-├── README.md               # This file
-├── WEB_APP_GUIDE.md        # Web application documentation
-├── GETTING_STARTED.md      # Step-by-step setup guide
-└── setup_postgres.md       # PostgreSQL setup instructions
+```bash
+# Test database connection
+python tests/test_connection.py
+
+# Run all tests
+pytest tests/
 ```
 
-## Customization
+## 🚀 Deployment
 
-### Using your own database schema
+### Docker
 
-1. Edit `schema.sql` with your PostgreSQL table definitions
-2. Drop and recreate the database, or run the schema manually
-3. Run `uv run main.py` to use the new schema
-
-### Connecting to existing PostgreSQL database
-
-If you have an existing database, just update the `.env` file with your connection details. The application will read the schema automatically without modifying your data.
-
-### Changing the model
-
-You can use different Groq models by modifying the initialization:
-
-```python
-converter = NLToSQL(model="llama-3.1-70b-versatile")
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
 ```
 
-Available models:
-- `llama-3.3-70b-versatile` (default, recommended)
-- `llama-3.1-70b-versatile`
-- `mixtral-8x7b-32768`
+### Production
 
-## Safety Features
+See [docs/WEB_APP_GUIDE.md](docs/WEB_APP_GUIDE.md) for detailed deployment instructions.
 
-- Only SELECT queries are generated (no INSERT, UPDATE, DELETE)
-- Schema validation before query generation
-- Error handling with detailed messages
+## 🤝 Contributing
 
-## Troubleshooting
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### "GROQ_API_KEY not found"
-Create a `.env` file with your API key from https://console.groq.com/
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### "API Offline" in web interface
-Start the backend: `uv run start_backend.py`
+## 📝 License
 
-### Database connection errors
-1. Check PostgreSQL is running
-2. Verify credentials in `.env`
-3. Test connection: `uv run test_postgres.py`
-4. Create database: `psql -U postgres -c "CREATE DATABASE nl_to_sql_db;"`
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### "Module not found"
-Install dependencies: `uv pip install -r requirements.txt`
+## 🙏 Acknowledgments
 
-## License
+- [Groq](https://groq.com/) for the amazing LLM API
+- [FastAPI](https://fastapi.tiangolo.com/) for the backend framework
+- [Streamlit](https://streamlit.io/) for the frontend framework
+- [PostgreSQL](https://www.postgresql.org/) for the database
 
-MIT License - feel free to use and modify as needed.
+## 📧 Support
+
+- 📖 [Documentation](docs/)
+- 🐛 [Issue Tracker](https://github.com/Saran-droid/NL_to_DB/issues)
+- 💬 [Discussions](https://github.com/Saran-droid/NL_to_DB/discussions)
+
+---
+
+Made with ❤️ by the Natural Language to SQL team

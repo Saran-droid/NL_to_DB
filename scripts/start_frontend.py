@@ -12,13 +12,13 @@ if __name__ == "__main__":
     print("\nPress Ctrl+C to stop the server\n")
     print("="*80)
     
-    # Get the path to the frontend app
-    frontend_path = os.path.join(os.path.dirname(__file__), "frontend", "app.py")
+    # Get the path to the frontend module
+    frontend_module = "nl_to_sql.frontend"
     
     # Run streamlit
     subprocess.run([
         sys.executable, "-m", "streamlit", "run",
-        frontend_path,
+        "-m", frontend_module,
         "--server.port=8501",
         "--server.address=localhost"
     ])

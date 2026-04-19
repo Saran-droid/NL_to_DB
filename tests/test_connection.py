@@ -1,5 +1,5 @@
 """Test PostgreSQL connection and setup."""
-from database import Database
+from nl_to_sql.database import Database
 import os
 from dotenv import load_dotenv
 
